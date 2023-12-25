@@ -32,7 +32,7 @@ pipeline {
                     sshPublisher(
                         publishers: [
                             sshPublisherDesc(
-                                configName: "third", 
+                                configName: "thiird", 
                                 transfers: [sshTransfer(
                                     execCommand: """
                                         docker pull junaid345/resume:${env.BUILD_ID}
@@ -76,7 +76,7 @@ pipeline {
         stage('sending email') {
             steps {
                 failure {
-                    emailext(
+                    mail(
                          to: 'junaidaw567@gmail.com',
                          subject: "Failed Pipeline: ${env.JOB_NAME} [${env.BUILD_NUMBER}]",
                          body: "Something is wrong with the build ${env.BUILD_URL}"
@@ -88,7 +88,7 @@ pipeline {
 
     post {
         success {
-            emailext(
+            mail(
                 to: 'junaidaw567@gmail.com',
                 subject: "Failed Pipeline: ${env.JOB_NAME} [${env.BUILD_NUMBER}]",
                 body: "Something is wrong with the build ${env.BUILD_URL}"
