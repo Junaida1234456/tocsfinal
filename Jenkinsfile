@@ -5,14 +5,14 @@ pipeline {
       stage('Build') {
         steps {
           script {
-            dockerImage = docker.build("anasdaroo7/anas-cv:${env.BUILD_ID}")
+            dockerImage = docker.build("junaid345/resume:${env.BUILD_ID}")
         }
     }
 }
         stage('Push') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+                    docker.withRegistry('https://registry.hub.docker.com', 'Junaid345') {
                         dockerImage.push()
                     }
                 }
@@ -35,10 +35,10 @@ pipeline {
                                 configName: "AWS Assignment", 
                                 transfers: [sshTransfer(
                                     execCommand: """
-                                        docker pull anasdaroo7/anas-cv:${env.BUILD_ID}
-                                        docker stop anas-cv-container || true
+                                        docker pull junaid345/resume:${env.BUILD_ID}
+                                        docker stop junaid345-cv-container || true
                                         docker rm anas-cv-container || true
-                                        docker run -d --name anas-cv-container -p 80:80 anasdaroo7/anas-cv:${env.BUILD_ID}
+                                        docker run -d --name junaid345-cv-container -p 80:80 junaid345/resume:${env.BUILD_ID}
                                     """
                                 )]
                             )
@@ -57,10 +57,10 @@ pipeline {
                                     configName: "AWS Assignment",
                                     transfers: [sshTransfer(
                                         execCommand: """
-                                            docker pull anasdaroo7/anas-cv:${previousSuccessfulTag}
-                                            docker stop anas-cv-container || true
-                                            docker rm anas-cv-container || true
-                                            docker run -d --name anas-cv-container -p 80:80 anasdaroo7/anas-cv:${previousSuccessfulTag}
+                                            docker pull junaid345/resume:${previousSuccessfulTag}
+                                            docker stop junaid345-cv-container || true
+                                            docker rm junaid345-cv-container || true
+                                            docker run -d --name junaid345-cv-container -p 80:80 junaid345/resume:${previousSuccessfulTag}
                                         """
                                     )]
                                 )
@@ -78,7 +78,7 @@ pipeline {
     post {
         failure {
             mail(
-                to: 'm.anasdar336@gmail.com',
+                to: 'm.junaidaw567@gmail.com',
                 subject: "Failed Pipeline: ${env.JOB_NAME} [${env.BUILD_NUMBER}]",
                 body: "Something is wrong with the build ${env.BUILD_URL}"
             )
