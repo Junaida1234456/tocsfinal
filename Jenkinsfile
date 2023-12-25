@@ -32,7 +32,7 @@ pipeline {
                     sshPublisher(
                         publishers: [
                             sshPublisherDesc(
-                                configName: "AWS Assignment", 
+                                configName: "thiird", 
                                 transfers: [sshTransfer(
                                     execCommand: """
                                         docker pull junaid345/resume:${env.BUILD_ID}
