@@ -37,7 +37,7 @@ pipeline {
                                     execCommand: """
                                         docker pull junaid345/resume:${env.BUILD_ID}
                                         docker stop junaid345-cv-container || true
-                                        docker rm anas-cv-container || true
+                                        docker rm junaid345-cv-container || true
                                         docker run -d --name junaid345-cv-container -p 80:80 junaid345/resume:${env.BUILD_ID}
                                     """
                                 )]
